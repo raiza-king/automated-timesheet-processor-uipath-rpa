@@ -1,0 +1,203 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="MainOrchestrator" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="841,2305" sap2010:WorkflowViewState.IdRef="MainOrchestrator_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="21">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="MainOrchestrator" sap:VirtualizedContainerService.HintSize="821,2245" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="EmployeeLookup" />
+      <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="MailMessages" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="779,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting Main Orchestration Processing&quot;]" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="779,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="PrepareWorkspace.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="EmployeeLookup">[EmployeeLookup]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="779,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Invoking Collect Emails&quot;]" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="779,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="CollectEmails.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="scg:List(snm:MailMessage)" x:Key="MailMessages">[MailMessages]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="779,1506" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[MailMessages]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="snm:MailMessage">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="MailItem" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="EachEmail" sap:VirtualizedContainerService.HintSize="743,1372" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="FileLocation" />
+              <Variable x:TypeArguments="x:String" Name="EmployeeID" />
+              <Variable x:TypeArguments="x:String" Name="EmployeeName" />
+              <Variable x:TypeArguments="x:String" Name="WeekStarting" />
+              <Variable x:TypeArguments="x:Double" Name="SundayHours" />
+              <Variable x:TypeArguments="x:Double" Name="MondayHours" />
+              <Variable x:TypeArguments="x:Double" Name="TuesdayHours" />
+              <Variable x:TypeArguments="x:Double" Name="WednesdayHours" />
+              <Variable x:TypeArguments="x:Double" Name="ThursdayHours" />
+              <Variable x:TypeArguments="x:Double" Name="FridayHours" />
+              <Variable x:TypeArguments="x:Double" Name="SaturdayHours" />
+              <Variable x:TypeArguments="x:String" Name="FirstName" />
+              <Variable x:TypeArguments="x:String" Name="LastName" />
+              <Variable x:TypeArguments="x:String" Name="HourlyRate" />
+              <Variable x:TypeArguments="x:String" Name="EmailAddress" />
+              <Variable x:TypeArguments="x:String" Name="EmploymentType" />
+              <Variable x:TypeArguments="x:Boolean" Name="EmployeeFound" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="701,1280" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+              <TryCatch.Try>
+                <Sequence DisplayName="Try Email Processing" sap:VirtualizedContainerService.HintSize="663,866" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="621,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Processing Email Subject: &quot; + MailItem.Subject.ToString + &quot; from &quot; + MailItem.From.Address]" />
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="621,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="ProcessEmail.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="snm:MailMessage" x:Key="MailItem">[MailItem]</InArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="FileLocation">[FileLocation]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="621,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="ReadFile.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="InputFile">[FileLocation]</InArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="EmployeeID">[EmployeeID]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="EmployeeName">[EmployeeName]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="WeekStarting">[WeekStarting]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="SundayHours">[SundayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="MondayHours">[MondayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="TuesdayHours">[TuesdayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="WednesdayHours">[WednesdayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="ThursdayHours">[ThursdayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="FridayHours">[FridayHours]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Double" x:Key="SaturdayHours">[SaturdayHours]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="621,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="LoadReferenceData.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="sd:DataTable" x:Key="EmployeeLookup">[EmployeeLookup]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="EmployeeID">[EmployeeID]</InArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="EmploymentType">[EmploymentType]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="FirstName">[FirstName]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="LastName">[LastName]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="HourlyRate">[HourlyRate]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="EmailAddress">[EmailAddress]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Boolean" x:Key="EmployeeFound">[EmployeeFound]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <If Condition="[EmployeeFound]" DisplayName="Check if Employe Found" sap:VirtualizedContainerService.HintSize="621,262" sap2010:WorkflowViewState.IdRef="If_1">
+                    <If.Then>
+                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="SubmitTimeReport.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="WeekStarting">[WeekStarting]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="SundayHours">[SundayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="MondayHours">[MondayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="TuesdayHours">[TuesdayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="WednesdayHours">[WednesdayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="ThursdayHours">[ThursdayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="FridayHours">[FridayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:Double" x:Key="SaturdayHours">[SaturdayHours]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="HourlyRate">[HourlyRate]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="FirstName">[FirstName]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="LastName">[LastName]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="EmploymentType">[EmploymentType]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="EmployeeID">[EmployeeID]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Raise Exception" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Throw DisplayName="Throw Business Rule Exception" Exception="[new BusinessRuleException(&quot;Processing of Timesheet failed due to missing mandatory data&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="667,104" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="exception" />
+                    </ActivityAction.Argument>
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="779,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Finished All Processing&quot;]" />
+  </Sequence>
+</Activity>

@@ -1,0 +1,125 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="LoadReferenceData" this:LoadReferenceData.EmployeeID="39175" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="EmployeeID" Type="InArgument(x:String)" />
+    <x:Property Name="EmploymentType" Type="OutArgument(x:String)" />
+    <x:Property Name="FirstName" Type="OutArgument(x:String)" />
+    <x:Property Name="LastName" Type="OutArgument(x:String)" />
+    <x:Property Name="HourlyRate" Type="OutArgument(x:String)" />
+    <x:Property Name="EmailAddress" Type="OutArgument(x:String)" />
+    <x:Property Name="EmployeeFound" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="EmployeeLookup" Type="InArgument(sd:DataTable)" />
+  </x:Members>
+  <this:LoadReferenceData.EmployeeLookup>
+    <InArgument x:TypeArguments="sd:DataTable" />
+  </this:LoadReferenceData.EmployeeLookup>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>682.4,1164.4</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>LoadReferenceData_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="LoadReferenceData" sap:VirtualizedContainerService.HintSize="662.4,1104.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="620.4,93.6" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Beginning Reference Data Lookup for &quot; + EmployeeID]" />
+    <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[EmployeeLookup]" DisplayName="Lookup First Name" sap:VirtualizedContainerService.HintSize="620.4,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_2" LookupColumnName="employeeID" LookupValue="[EmployeeID]" TargetColumnName="firstName">
+      <ui:LookupDataTable.CellValue>
+        <OutArgument x:TypeArguments="x:String">[FirstName]</OutArgument>
+      </ui:LookupDataTable.CellValue>
+    </ui:LookupDataTable>
+    <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[EmployeeLookup]" DisplayName="Lookup Last Name" sap:VirtualizedContainerService.HintSize="620.4,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="employeeID" LookupValue="[EmployeeID]" TargetColumnName="lastName">
+      <ui:LookupDataTable.CellValue>
+        <OutArgument x:TypeArguments="x:String">[LastName]</OutArgument>
+      </ui:LookupDataTable.CellValue>
+    </ui:LookupDataTable>
+    <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[EmployeeLookup]" DisplayName="Lookup Email Address" sap:VirtualizedContainerService.HintSize="620.4,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_5" LookupColumnName="employeeID" LookupValue="[EmployeeID]" TargetColumnName="emailAddress">
+      <ui:LookupDataTable.CellValue>
+        <OutArgument x:TypeArguments="x:String">[EmailAddress]</OutArgument>
+      </ui:LookupDataTable.CellValue>
+    </ui:LookupDataTable>
+    <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[EmployeeLookup]" DisplayName="Lookup Employment Type" sap:VirtualizedContainerService.HintSize="620.4,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_6" LookupColumnName="employeeID" LookupValue="[EmployeeID]" TargetColumnName="employmentType">
+      <ui:LookupDataTable.CellValue>
+        <OutArgument x:TypeArguments="x:String">[EmploymentType]</OutArgument>
+      </ui:LookupDataTable.CellValue>
+    </ui:LookupDataTable>
+    <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[EmployeeLookup]" DisplayName="Lookup Hourly Rate" sap:VirtualizedContainerService.HintSize="620.4,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_7" LookupColumnName="employeeID" LookupValue="[EmployeeID]" TargetColumnName="hourlyRate">
+      <ui:LookupDataTable.CellValue>
+        <OutArgument x:TypeArguments="x:String">[HourlyRate]</OutArgument>
+      </ui:LookupDataTable.CellValue>
+    </ui:LookupDataTable>
+    <If Condition="[FirstName Is Nothing Or LastName Is Nothing Or EmailAddress Is Nothing Or EmploymentType Is Nothing Or HourlyRate Is Nothing]" DisplayName="Check if Employee Found in Reference Data" sap:VirtualizedContainerService.HintSize="620.4,435.2" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Throw DisplayName="Throw New Business Rule Exception" Exception="[new BusinessRuleException(&quot;Employee not found in reference data or missing mandatory values&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+      </If.Then>
+      <If.Else>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,285.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="334,59.6" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[EmployeeFound]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93.6" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Employee &quot; +FirstName + &quot; &quot; + LastName + &quot; found&quot;]" />
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="620.4,93.6" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Reference Data Loaded for &quot; + EmployeeID]" />
+  </Sequence>
+</Activity>
